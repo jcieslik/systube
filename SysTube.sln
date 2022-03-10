@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysTube", "SysTube\SysTube.csproj", "{E2AFDC3B-06B6-492F-ACF3-A7E9110ECA50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SysTube", "SysTube\SysTube.csproj", "{E2AFDC3B-06B6-492F-ACF3-A7E9110ECA50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{DF7ED030-4A7F-44FC-9A8C-7F9D78F88EEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{DF7ED030-4A7F-44FC-9A8C-7F9D78F88EEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{E7A41753-D12C-44A5-B82F-D031F5254AE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{E7A41753-D12C-44A5-B82F-D031F5254AE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{D0D89F2A-AB34-43D6-B7F1-019557CFFB26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{D0D89F2A-AB34-43D6-B7F1-019557CFFB26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5FE38289-4AE4-44A1-92A9-0E70180C8F3D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
