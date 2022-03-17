@@ -44,16 +44,18 @@ namespace SysTube.Controllers
             }
 
             Stream outputStream = Response.Body;
+            var bytesToRead = 1000000;
 
             while (true)
             {
                 var bytesRead = await stream.ReadAsync(buffer.AsMemory(0, 4096));
+                bytesToRead -= bytesRead;
                 if (bytesRead == 0)
                 {
                     break;
                 }
                 await outputStream.WriteAsync(buffer.AsMemory(0, bytesRead));
-                if (bytesRead < 4096)
+                if (bytesToRead <= 0)
                 {
                     break;
                 }
