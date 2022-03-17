@@ -8,6 +8,6 @@
 
         public string Description { get; set; }
 
-        public ICollection<Video> Videos { get; set; }
+        public ICollection<VideoFile> VideoFiles { get; set; }
     }
 }
