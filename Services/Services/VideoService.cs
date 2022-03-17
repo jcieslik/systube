@@ -7,7 +7,7 @@ namespace Services.Services
     {
         public string GetVideoPathByIdAndResolution(int fileId, Resolution resolution)
         {
-            return "C:/Users/jcies/Downloads/sample_1280x720_surfing_with_audio.mp4";
+            return "C:/Users/jcies/Downloads/symulacja.mp4";
         }
     }
 }
