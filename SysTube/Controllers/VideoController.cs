@@ -73,7 +73,7 @@ namespace SysTube.Controllers
         {
             string filePath = videoService.GetVideoPathByIdAndResolution(fileId, Data.Enums.Resolution._360p);
 
-            Stream stream = new FileStream("C:/Users/jcies/Downloads/minus.mp4", FileMode.Open, FileAccess.Read, FileShare.Read);
+            Stream stream = new FileStream("C:/Users/jcies/Downloads/sample_640x360_surfing_with_audio.mp4", FileMode.Open, FileAccess.Read, FileShare.Read);
 
             var dataToRead = stream.Length;
 
