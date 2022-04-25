@@ -2,6 +2,7 @@ using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Services.Interfaces;
 using Services.Services;
+using SysTube.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,9 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IVideoService, VideoService>();
+builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
+
+builder.Services.Configure<SettingsModel>(builder.Configuration.GetSection("Settings"));
 
 var app = builder.Build();
 

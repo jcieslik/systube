@@ -1,4 +1,5 @@
 ﻿using Data.Entities;
+using Data.Enums;
 
 namespace Services.DTOs
 {
@@ -18,7 +19,9 @@ namespace Services.DTOs
 
         public byte[] Thumbnail { get; set; }
 
-        public VideoDTO(Video video, byte[] thumbnail)
+        public IEnumerable<Resolution> AvailableResolutions { get; set; }
+
+        public VideoDTO(Video video, string thumbnailPath)
         {
             Id = video.Id;
             Title = video.Title;
@@ -26,7 +29,22 @@ namespace Services.DTOs
             ThumbnailFilepath = video.ThumbnailFilepath;
             WatchedCounter = video.WatchedCounter;
             SecondsLength = video.SecondsLength;
-            Thumbnail = thumbnail;
+            AvailableResolutions = video.Files.Select(x => x.Resolution).Distinct();
+
+            try
+            {
+                var fileInfo = new FileInfo(thumbnailPath + video.ThumbnailFilepath);
+                Thumbnail = new byte[fileInfo.Length];
+                using (FileStream fs = fileInfo.OpenRead())
+                {
+                    fs.Read(Thumbnail, 0, Thumbnail.Length);
+                }
+                fileInfo.Delete();
+            }
+            catch (Exception)
+            {
+                Thumbnail = Array.Empty<byte>();
+            }
         }
     }
 }
