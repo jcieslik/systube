@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
-using System.IO;
-using System;
 using Data.Enums;
+using Services.DTOs;
+using Services.Models;
 
 namespace SysTube.Controllers
 {
@@ -18,10 +18,17 @@ namespace SysTube.Controllers
         }
 
         [HttpGet]
+        [Route("GetVideosPaginated")] 
+        public async Task<ActionResult<PaginatedList<VideoDTO>>> GetVideosPaginated([FromQuery] PaginationProperties paginationProperties)
+        {
+            return Ok();
+        }
+
+        [HttpGet]
         [Route("GetFileById")]
         public async Task GetFileById(int fileId, Resolution resolution)
         {
-            string filePath = videoService.GetVideoPathByIdAndResolution(fileId, Data.Enums.Resolution._360p);
+            string filePath = videoService.GetVideoPathByIdAndResolution(fileId, Resolution._360p);
 
             Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
             
@@ -71,7 +78,7 @@ namespace SysTube.Controllers
         [Route("GetFileById2")]
         public async Task GetFileById2(int fileId)
         {
-            string filePath = videoService.GetVideoPathByIdAndResolution(fileId, Data.Enums.Resolution._360p);
+            string filePath = videoService.GetVideoPathByIdAndResolution(fileId, Resolution._360p);
 
             Stream stream = new FileStream("C:/Users/jcies/Downloads/sample_640x360_surfing_with_audio.mp4", FileMode.Open, FileAccess.Read, FileShare.Read);
 

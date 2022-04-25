@@ -1,13 +1,17 @@
 ﻿namespace Data.Entities
 {
-    public class Video
+    public class Video : Entity
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
+        public string Title { get; set; }
+        
         public string Description { get; set; }
 
-        public ICollection<VideoFile> VideoFiles { get; set; }
+        public string ThumbnailFilepath { get; set; }
+
+        public long WatchedCounter { get; set; }
+
+        public long SecondsLength { get; set; }
+        
+        public ICollection<Video> Videos { get; set; }
     }
 }

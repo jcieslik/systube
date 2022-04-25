@@ -2,10 +2,8 @@
 
 namespace Data.Entities
 {
-    public class VideoFile
+    public class VideoFile : Entity
     {
-        public int Id { get; set; }
-
         public string Path { get; set; }
 
         public Resolution Resolution { get; set; }
