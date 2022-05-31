@@ -37,9 +37,11 @@ namespace SysTube.Controllers
         {
             try
             {
-                string filePath = await videoService.GetVideoPathByIdAndResolution(fileId, resolution);
+                var videoWithFilepath = await videoService.GetVideoByIdAndResolution(fileId, resolution);
 
-                Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                Stream stream = new FileStream(settings.Value.VideosPath + videoWithFilepath.Filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+                var streamLength = (stream.Length / videoWithFilepath.SecondsLength) * 10;
 
                 var dataToRead = stream.Length;
 
@@ -52,7 +54,7 @@ namespace SysTube.Controllers
                 {
                     string[] range = Request.Headers["Range"][0].Split(new char[] { '=', '-' });
                     var startbyte = int.Parse(range[1]);
-                    var endByte = Math.Min(startbyte + 1000000, dataToRead - 1);
+                    var endByte = Math.Min(startbyte + streamLength, dataToRead - 1);
                     stream.Seek(startbyte, SeekOrigin.Begin);
 
                     Response.StatusCode = 206;
@@ -61,13 +63,13 @@ namespace SysTube.Controllers
                 }
 
                 Stream outputStream = Response.Body;
-                var bytesToRead = 1000001;
+                var bytesToRead = streamLength;
 
                 while (true)
                 {
                     if (bytesToRead > 0)
                     {
-                        var bytesRead = await stream.ReadAsync(buffer.AsMemory(0, Math.Min(4096, bytesToRead)));
+                        var bytesRead = await stream.ReadAsync(buffer.AsMemory(0, Math.Min(4096, (int)bytesToRead)));
                         bytesToRead -= bytesRead;
                         await outputStream.WriteAsync(buffer.AsMemory(0, bytesRead));
                         if (bytesRead == 0)

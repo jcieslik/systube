@@ -26,6 +26,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
 
 builder.Services.Configure<SettingsModel>(builder.Configuration.GetSection("Settings"));
 

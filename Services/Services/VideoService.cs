@@ -18,7 +18,7 @@ namespace Services.Services
             this.context = context;
         }
 
-        public async Task<string> GetVideoPathByIdAndResolution(int fileId, Resolution resolution)
+        public async Task<VideoWithFilepathDTO> GetVideoByIdAndResolution(int fileId, Resolution resolution)
         {
             var video = await context.Videos
                 .Include(x => x.Files)
@@ -36,7 +36,9 @@ namespace Services.Services
                 throw new NotFoundException(nameof(Video), fileId);
             }
 
-            return file.Path;
+            var videoWithFile = new VideoWithFilepathDTO(video, video.ThumbnailFilepath, file.Path);
+
+            return videoWithFile;
         }
 
         public async Task<PaginatedList<VideoDTO>> GetVideosPaginated(PaginationProperties paginationProperties, string thumbnailsPath)

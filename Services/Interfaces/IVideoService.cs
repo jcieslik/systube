@@ -6,7 +6,7 @@ namespace Services.Interfaces
 {
     public interface IVideoService
     {
-        Task<string> GetVideoPathByIdAndResolution(int fileId, Resolution resolution);
+        Task<VideoWithFilepathDTO> GetVideoByIdAndResolution(int fileId, Resolution resolution);
 
         Task<PaginatedList<VideoDTO>> GetVideosPaginated(PaginationProperties paginationProperties, string thumbnailPath);
 
