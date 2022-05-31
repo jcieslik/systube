@@ -41,10 +41,13 @@ namespace Services.Services
             return videoWithFile;
         }
 
-        public async Task<PaginatedList<VideoDTO>> GetVideosPaginated(PaginationProperties paginationProperties, string thumbnailsPath)
+        public async Task<PaginatedList<VideoDTO>> GetVideosPaginated(PaginationProperties paginationProperties, string thumbnailsPath, string searchString = "")
         {
+            var searchSubstrings = searchString.Split(" ");
+
             var videos = await context.Videos
                 .Include(x => x.Files)
+                .Where(x => searchSubstrings.Any(x.Title.Contains))
                 .AsQueryable()
                 .ToPaginatedListAsync(paginationProperties.PageIndex, paginationProperties.PageSize);
 
@@ -94,6 +97,16 @@ namespace Services.Services
             video = await context.Videos.FindAsync(file.VideoId);
 
             return new VideoDTO(video, thumbnailsPath);
+        }
+
+        public async Task<IEnumerable<VideoDTO>> GetVideosForSidebar()
+        {
+            return await context.Videos
+                .Include(x => x.Files)
+                .OrderBy(arg => Guid.NewGuid())
+                .Take(10)
+                .Select(x => new VideoDTO(x, x.ThumbnailFilepath))
+                .ToListAsync();
         }
     }
 }

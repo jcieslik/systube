@@ -24,9 +24,9 @@ namespace SysTube.Controllers
 
         [HttpGet]
         [Route("GetVideosPaginated")] 
-        public async Task<ActionResult<PaginatedList<VideoDTO>>> GetVideosPaginated([FromQuery] PaginationProperties paginationProperties)
+        public async Task<ActionResult<PaginatedList<VideoDTO>>> GetVideosPaginated([FromQuery] PaginationProperties paginationProperties, [FromQuery] string searchString) 
         {
-            var videos = await videoService.GetVideosPaginated(paginationProperties, settings.Value.ThumbnailsPath);
+            var videos = await videoService.GetVideosPaginated(paginationProperties, settings.Value.ThumbnailsPath, searchString);
 
             return Ok(videos);
         }
@@ -115,6 +115,15 @@ namespace SysTube.Controllers
             {
                 return NotFound(ex.Message);
             }
+        }
+
+        [HttpGet]
+        [Route("GetVideosForSidebar")]
+        public async Task<ActionResult<IEnumerable<VideoDTO>>> GetVideosForSidebar()
+        {
+            var videos = await videoService.GetVideosForSidebar();
+
+            return Ok(videos);
         }
     }
 }
