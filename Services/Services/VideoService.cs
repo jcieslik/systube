@@ -105,7 +105,7 @@ namespace Services.Services
                 .Include(x => x.Files)
                 .Where(x => x.Id != currentVideoId)
                 .OrderBy(arg => Guid.NewGuid())
-                .Take(6)
+                .Take(5)
                 .Select(x => new VideoDTO(x, thumbnailPath))
                 .ToListAsync();
         }
