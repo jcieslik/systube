@@ -8,9 +8,9 @@ namespace Services.Extensions
     {
         public static PaginatedList<T> ToPaginatedList<T>(this IEnumerable<T> source, int page, int pageSize) where T : Entity
         {
-            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize);
 
-            return new PaginatedList<T>(items, items.Count, page, pageSize);
+            return new PaginatedList<T>(items, items.Count(), page, pageSize);
         }
     }
 }
