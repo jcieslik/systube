@@ -41,15 +41,14 @@ namespace Services.Services
             return videoWithFile;
         }
 
-        public async Task<PaginatedList<VideoDTO>> GetVideosPaginated(PaginationProperties paginationProperties, string thumbnailsPath, string searchString = "")
+        public PaginatedList<VideoDTO> GetVideosPaginated(PaginationProperties paginationProperties, string thumbnailsPath, string searchString = "")
         {
             var searchSubstrings = searchString.Split(" ");
 
-            var videos = await context.Videos
+            var videos = context.Videos
                 .Include(x => x.Files)
                 .Where(x => searchSubstrings.Any(x.Title.Contains))
-                .AsQueryable()
-                .ToPaginatedListAsync(paginationProperties.PageIndex, paginationProperties.PageSize);
+                .ToPaginatedList(paginationProperties.PageIndex, paginationProperties.PageSize);
 
             return new PaginatedList<VideoDTO>(videos.Items.Select(x => new VideoDTO(x, thumbnailsPath)).ToList(), videos.Items.Count, videos.PageIndex, videos.TotalCount);
         }

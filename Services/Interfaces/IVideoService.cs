@@ -8,7 +8,7 @@ namespace Services.Interfaces
     {
         Task<VideoWithFilepathDTO> GetVideoByIdAndResolution(int fileId, Resolution resolution);
 
-        Task<PaginatedList<VideoDTO>> GetVideosPaginated(PaginationProperties paginationProperties, string thumbnailPath, string searchString);
+        PaginatedList<VideoDTO> GetVideosPaginated(PaginationProperties paginationProperties, string thumbnailPath, string searchString);
 
         Task<IEnumerable<VideoDTO>> GetVideosForSidebar(int currentVideoId, string thumbnailPath);
 

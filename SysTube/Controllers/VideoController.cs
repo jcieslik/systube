@@ -33,9 +33,9 @@ namespace SysTube.Controllers
 
         [HttpGet]
         [Route("GetVideosPaginated")] 
-        public async Task<ActionResult<PaginatedList<VideoDTO>>> GetVideosPaginated([FromQuery] PaginationProperties paginationProperties, [FromQuery] string searchString) 
+        public ActionResult<PaginatedList<VideoDTO>> GetVideosPaginated([FromQuery] PaginationProperties paginationProperties, [FromQuery] string searchString) 
         {
-            var videos = await videoService.GetVideosPaginated(paginationProperties, settings.Value.ThumbnailsPath, searchString);
+            var videos = videoService.GetVideosPaginated(paginationProperties, settings.Value.ThumbnailsPath, searchString);
 
             return Ok(videos);
         }
