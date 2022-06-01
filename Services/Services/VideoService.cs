@@ -99,13 +99,13 @@ namespace Services.Services
             return new VideoDTO(video, thumbnailsPath);
         }
 
-        public async Task<IEnumerable<VideoDTO>> GetVideosForSidebar()
+        public async Task<IEnumerable<VideoDTO>> GetVideosForSidebar(string thumbnailPath)
         {
             return await context.Videos
                 .Include(x => x.Files)
                 .OrderBy(arg => Guid.NewGuid())
                 .Take(10)
-                .Select(x => new VideoDTO(x, x.ThumbnailFilepath))
+                .Select(x => new VideoDTO(x, thumbnailPath))
                 .ToListAsync();
         }
     }

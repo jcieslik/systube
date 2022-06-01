@@ -39,7 +39,6 @@ namespace Services.DTOs
                 {
                     fs.Read(Thumbnail, 0, Thumbnail.Length);
                 }
-                fileInfo.Delete();
             }
             catch (Exception)
             {

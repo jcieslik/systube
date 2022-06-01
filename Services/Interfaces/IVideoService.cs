@@ -10,7 +10,7 @@ namespace Services.Interfaces
 
         Task<PaginatedList<VideoDTO>> GetVideosPaginated(PaginationProperties paginationProperties, string thumbnailPath, string searchString);
 
-        Task<IEnumerable<VideoDTO>> GetVideosForSidebar();
+        Task<IEnumerable<VideoDTO>> GetVideosForSidebar(string thumbnailPath);
 
         Task<VideoDTO> AddVideo(CreateVideoDTO video, string thumbnailsPath);
 

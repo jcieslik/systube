@@ -121,7 +121,7 @@ namespace SysTube.Controllers
         [Route("GetVideosForSidebar")]
         public async Task<ActionResult<IEnumerable<VideoDTO>>> GetVideosForSidebar()
         {
-            var videos = await videoService.GetVideosForSidebar();
+            var videos = await videoService.GetVideosForSidebar(settings.Value.ThumbnailsPath);
 
             return Ok(videos);
         }

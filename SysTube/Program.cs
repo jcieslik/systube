@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
-        builder => builder.WithOrigins("https://localhost:4200")
+        builder => builder.WithOrigins("http://localhost:4200")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials());
@@ -34,6 +34,8 @@ builder.Services.AddResponseCompression(options =>
 builder.Services.Configure<SettingsModel>(builder.Configuration.GetSection("Settings"));
 
 var app = builder.Build();
+
+app.UseCors("CorsPolicy");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
