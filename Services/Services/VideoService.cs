@@ -104,7 +104,7 @@ namespace Services.Services
             return await context.Videos
                 .Include(x => x.Files)
                 .OrderBy(arg => Guid.NewGuid())
-                .Take(10)
+                .Take(6)
                 .Select(x => new VideoDTO(x, thumbnailPath))
                 .ToListAsync();
         }
