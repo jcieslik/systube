@@ -99,7 +99,7 @@ namespace Services.Services
             return new VideoDTO(video, thumbnailsPath);
         }
 
-        public async Task<IEnumerable<VideoDTO>> GetVideosForSidebar(long currentVideoId, string thumbnailPath)
+        public async Task<IEnumerable<VideoDTO>> GetVideosForSidebar(int currentVideoId, string thumbnailPath)
         {
             return await context.Videos
                 .Include(x => x.Files)
@@ -109,5 +109,19 @@ namespace Services.Services
                 .Select(x => new VideoDTO(x, thumbnailPath))
                 .ToListAsync();
         }
+
+        public async Task IncrementWatchedCounter(int videoId)
+        {
+            var video = await context.Videos.FindAsync(videoId);
+
+            if (video == null)
+            {
+                throw new NotFoundException(nameof(Video), videoId);
+            }
+
+            video.WatchedCounter++;
+
+            await context.SaveChangesAsync();
+        }   
     }
 }

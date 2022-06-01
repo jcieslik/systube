@@ -119,11 +119,20 @@ namespace SysTube.Controllers
 
         [HttpGet]
         [Route("GetVideosForSidebar")]
-        public async Task<ActionResult<IEnumerable<VideoDTO>>> GetVideosForSidebar(long currentVideoId)
+        public async Task<ActionResult<IEnumerable<VideoDTO>>> GetVideosForSidebar(int currentVideoId)
         {
             var videos = await videoService.GetVideosForSidebar(currentVideoId, settings.Value.ThumbnailsPath);
 
             return Ok(videos);
+        }
+
+        [HttpPut]
+        [Route("IncrementWatched")]
+        public async Task<ActionResult> IncrementWatched(int videoId)
+        {
+            await videoService.IncrementWatchedCounter(videoId);
+
+            return Ok();
         }
     }
 }
