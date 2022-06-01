@@ -48,6 +48,7 @@ namespace Services.Services
             var videos = context.Videos
                 .Include(x => x.Files)
                 .Where(x => searchSubstrings.Any(x.Title.Contains))
+                .AsEnumerable()
                 .ToPaginatedList(paginationProperties.PageIndex, paginationProperties.PageSize);
 
             return new PaginatedList<VideoDTO>(videos.Items.Select(x => new VideoDTO(x, thumbnailsPath)).ToList(), videos.Items.Count, videos.PageIndex, videos.TotalCount);

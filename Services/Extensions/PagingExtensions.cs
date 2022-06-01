@@ -6,7 +6,7 @@ namespace Services.Extensions
 {
     public static class PagingExtensions
     {
-        public static PaginatedList<T> ToPaginatedList<T>(this IQueryable<T> source, int page, int pageSize) where T : Entity
+        public static PaginatedList<T> ToPaginatedList<T>(this IEnumerable<T> source, int page, int pageSize) where T : Entity
         {
             var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
