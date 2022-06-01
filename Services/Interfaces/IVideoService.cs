@@ -17,5 +17,7 @@ namespace Services.Interfaces
         Task<VideoDTO> AddVideoFile(CreateVideoFileDTO file, string thumbnailsPath);
 
         Task IncrementWatchedCounter(int videoId);
+
+        Task<VideoDTO> GetVideoById(int videoId);
     }
 }

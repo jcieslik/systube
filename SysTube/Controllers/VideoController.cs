@@ -23,6 +23,15 @@ namespace SysTube.Controllers
         }
 
         [HttpGet]
+        [Route("GetVideoById")]
+        public async Task<ActionResult<VideoDTO>> GetVideoById([FromQuery] int videoId)
+        {
+            var video = await videoService.GetVideoById(videoId);
+
+            return Ok(video);
+        }
+
+        [HttpGet]
         [Route("GetVideosPaginated")] 
         public async Task<ActionResult<PaginatedList<VideoDTO>>> GetVideosPaginated([FromQuery] PaginationProperties paginationProperties, [FromQuery] string searchString) 
         {

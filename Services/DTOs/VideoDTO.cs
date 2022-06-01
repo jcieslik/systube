@@ -45,5 +45,15 @@ namespace Services.DTOs
                 Thumbnail = Array.Empty<byte>();
             }
         }
+
+        public VideoDTO(Video video)
+        {
+            Id = video.Id;
+            Title = video.Title;
+            Description = video.Description;
+            WatchedCounter = video.WatchedCounter;
+            SecondsLength = video.SecondsLength;
+            AvailableResolutions = video.Files.Select(x => x.Resolution).Distinct();
+        }
     }
 }

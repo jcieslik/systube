@@ -122,6 +122,18 @@ namespace Services.Services
             video.WatchedCounter++;
 
             await context.SaveChangesAsync();
-        }   
+        }
+
+        public async Task<VideoDTO> GetVideoById(int videoId)
+        {
+            var video = await context.Videos.Include(x => x.Files).FirstOrDefaultAsync(x => x.Id == videoId);
+
+            if (video == null)
+            {
+                throw new NotFoundException(nameof(Video), videoId);
+            }
+
+            return new VideoDTO(video);
+        }
     }
 }
