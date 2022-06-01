@@ -46,10 +46,11 @@ namespace Services.Services
             var searchSubstrings = searchString.Split(" ");
 
             var videos = context.Videos
-                .Include(x => x.Files).AsEnumerable()
-                .Where(x => searchSubstrings.Any(x.Title.Contains)).AsEnumerable();
+                .Include(x => x.Files)
+                .AsEnumerable()
+                .Where(x => searchSubstrings.Any(x.Title.Contains));
 
-            return new PaginatedList<VideoDTO>(videos.Select(x => new VideoDTO(x, thumbnailsPath)).ToList(), videos.Count(), paginationProperties.PageIndex, paginationProperties.PageSize);
+            return new PaginatedList<VideoDTO>(videos.Select(x => new VideoDTO(x, thumbnailsPath)), videos.Count(), paginationProperties.PageIndex, paginationProperties.PageSize);
         }
 
         public async Task<VideoDTO> AddVideo(CreateVideoDTO video, string thumbnailsPath)
