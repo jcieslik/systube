@@ -48,7 +48,7 @@ namespace SysTube.Controllers
             {
                 var videoWithFilepath = await videoService.GetVideoByIdAndResolution(fileId, resolution);
 
-                Stream stream = new FileStream(settings.Value.VideosPath + videoWithFilepath.Filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                Stream stream = new FileStream(settings.Value.VideosPath + "\\" + videoWithFilepath.Filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
                 var streamLength = (stream.Length / videoWithFilepath.SecondsLength) * 10;
 
