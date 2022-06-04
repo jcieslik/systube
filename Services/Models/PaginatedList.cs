@@ -14,7 +14,7 @@ namespace Services.Models
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             TotalCount = count;
-            Items = items;
+            Items = items.Skip(pageSize* pageIndex).Take(pageSize);
         }
 
         public bool HasPreviousPage => PageIndex > 1;

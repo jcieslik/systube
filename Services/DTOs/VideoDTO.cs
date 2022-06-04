@@ -33,7 +33,7 @@ namespace Services.DTOs
 
             try
             {
-                var fileInfo = new FileInfo(thumbnailPath + video.ThumbnailFilepath);
+                var fileInfo = new FileInfo(thumbnailPath + "/" + video.ThumbnailFilepath);
                 Thumbnail = new byte[fileInfo.Length];
                 using (FileStream fs = fileInfo.OpenRead())
                 {
