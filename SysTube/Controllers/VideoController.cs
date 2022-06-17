@@ -147,17 +147,24 @@ namespace SysTube.Controllers
 
         [HttpGet]
         [Route("GetSizeOfVideoSecondById")]
-        public async Task<ActionResult<long>> GetSizeOfVideoSecondById(int videoId, Resolution resolution)
+        public async Task<ActionResult<Dictionary<Resolution, long>>> GetSizeOfVideoSecondById(int videoId)
         {
             try
             {
-                var videoWithFilepath = await videoService.GetVideoByIdAndResolution(videoId, resolution);
+                var dictionary = new Dictionary<Resolution, long>();
 
-                FileStream stream = new FileStream(settings.Value.VideosPath + "\\" + videoWithFilepath.Filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                foreach (Resolution resolution in Enum.GetValues(typeof(Resolution)))
+                {
+                    var videoWithFilepath = await videoService.GetVideoByIdAndResolution(videoId, resolution);
 
-                long secondSize = stream.Length / videoWithFilepath.SecondsLength;
+                    FileStream stream = new FileStream(settings.Value.VideosPath + "\\" + videoWithFilepath.Filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-                return Ok(secondSize);
+                    long secondSize = stream.Length / videoWithFilepath.SecondsLength;
+
+                    dictionary.Add(resolution, secondSize);
+                }
+
+                return Ok(dictionary);
             }
             catch (Exception ex)
             {
@@ -170,8 +177,8 @@ namespace SysTube.Controllers
         public ActionResult<byte[]> TestConnection()
         {
             var mb = new byte[1024 * 1024];
+
             return Ok(mb);
         }
-
     }
 }
