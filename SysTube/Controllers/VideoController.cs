@@ -144,6 +144,27 @@ namespace SysTube.Controllers
             return Ok();
         }
 
+
+        [HttpGet]
+        [Route("GetSizeOfVideoSecondById")]
+        public async Task<ActionResult<long>> GetSizeOfVideoSecondById(int videoId, Resolution resolution)
+        {
+            try
+            {
+                var videoWithFilepath = await videoService.GetVideoByIdAndResolution(videoId, resolution);
+
+                FileStream stream = new FileStream(settings.Value.VideosPath + "\\" + videoWithFilepath.Filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+                long secondSize = stream.Length / videoWithFilepath.SecondsLength;
+
+                return Ok(secondSize);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet]
         [Route("TestConnection")]
         public ActionResult<byte[]> TestConnection()
