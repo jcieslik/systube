@@ -143,5 +143,14 @@ namespace SysTube.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("TestConnection")]
+        public ActionResult<byte[]> TestConnection()
+        {
+            var mb = new byte[1024 * 1024];
+            return Ok(mb);
+        }
+
     }
 }
